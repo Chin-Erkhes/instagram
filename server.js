@@ -1,0 +1,26 @@
+const mongoose = require("mongoose");
+const express = require("express");
+const userRoute = require("./routes/user.Rountes");
+const postRoute = require("./routes/postRoutes");
+const app = express();
+app.use(express.json());
+
+app.use(postRoute);
+app.use(userRoute);
+
+const connectDataBase = async () => {
+  console.log("call connect db");
+  try {
+    await mongoose.connect(
+      "mongodb+srv://24hp6902:c1dCd3rBq17ws4Ks@hop-1a.agow4.mongodb.net/instagram?retryWrites=true&w=majority&appName=HOP-1A"
+    );
+    // c1dCd3rBq17ws4Ks
+    console.log("DB connected");
+  } catch (error) {
+    console.error("Error connecting to database:", error);
+  }
+};
+
+connectDataBase();
+
+app.listen(8080, console.log("running"));
