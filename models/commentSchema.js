@@ -1,14 +1,14 @@
-const { Schema, default:mongoose } = require("mongoose");
+const { Schema, default: mongoose } = require("mongoose");
 
-const postSchema = new Schema(
-    {
-        postId: { type: String, required: true },
-        comment: { type: String, required: true },
-        userId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
-    },
-    { timeStamps: true }
+const likeSchema = new Schema(
+  {
+    postId: { type: mongoose.Types.ObjectId, ref: "post", required: true },
+    userId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
+    comment: { type: String, required: true },
+  },
+  { timeStamps: true }
 );
 
-const postModel = mongoose.model("Post", postSchema);
+const likeModel = mongoose.model("comment", likeSchema);
 
-module.exports = postModel;
+module.exports = likeModel;

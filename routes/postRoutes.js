@@ -21,7 +21,7 @@ postRoute.post("/post", async (req, res) => {
 
     res.status(200).json(createdPost);
   } catch (error) {
-    res.status(500), json(error);
+    throw new Error(error);
   }
 });
 
@@ -33,7 +33,13 @@ postRoute.post("/create", async (req, res) => {
 });
 
 postRoute.get("/posts", async (req, res) => {
-  const posts = await postModel.find().populate("userId", "email username _id");
+  const posts = await postModel.find().populate({
+    path: "likes",
+    populate: {
+      path: "users",
+      select: "username email",
+    },
+  });
   res.status(200).json(posts);
 });
 
