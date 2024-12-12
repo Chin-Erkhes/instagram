@@ -5,6 +5,7 @@ const postRoute = require("./routes/postRoutes");
 const likeRoute = require("./routes/likeRoutes");
 const commentRoute = require("./routes/commentRoutes");
 const cors = require("cors");
+const postModel = require("./models/postSchema");
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -27,5 +28,14 @@ const connectDataBase = async () => {
 };
 
 connectDataBase();
+
+app.get("/posts", async (req, res) => {
+  try {
+    const posts = await postModel.find();
+    res.status(200).json(posts);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 
 app.listen(8080, console.log("running"));

@@ -32,15 +32,4 @@ postRoute.post("/create", async (req, res) => {
   res.status(200).json(posts);
 });
 
-postRoute.get("/posts", async (req, res) => {
-  const posts = await postModel.find().populate({
-    path: "likes",
-    populate: {
-      path: "users",
-      select: "username email",
-    },
-  });
-  res.status(200).json(posts);
-});
-
 module.exports = postRoute;
