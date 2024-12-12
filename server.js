@@ -31,7 +31,7 @@ connectDataBase();
 
 app.get("/posts", async (req, res) => {
   try {
-    const posts = await postModel.find();
+    const posts = await postModel.find().populate("userId");
     res.status(200).json(posts);
   } catch (error) {
     throw new Error(error);
