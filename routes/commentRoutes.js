@@ -1,7 +1,7 @@
 const commentModel = require("../models/commentSchema");
 const postModel = require("../models/postSchema");
 const commentRoute = require("../routes/user.Rountes");
-commentRoute.post("/writeComment", async (req, res) => {
+commentRoute.post("/writecomment", async (req, res) => {
   try {
     const { comment, postId, userId } = req.body;
 

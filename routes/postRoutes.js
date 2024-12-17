@@ -1,8 +1,11 @@
 const Route = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const postModel = require("../models/postSchema");
 const userModel = require("../models/userSchema");
 
 const postRoute = Route();
+const userRoute = Route();
 
 postRoute.post("/post", async (req, res) => {
   const { caption, postImage, userId } = req.body;

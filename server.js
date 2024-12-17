@@ -4,6 +4,8 @@ const userRoute = require("./routes/user.Rountes");
 const postRoute = require("./routes/postRoutes");
 const likeRoute = require("./routes/likeRoutes");
 const commentRoute = require("./routes/commentRoutes");
+const dotenv = require("dotenv");
+// const authMiddleWare = require("./auth-middleware/auth");
 const cors = require("cors");
 const postModel = require("./models/postSchema");
 const app = express();
@@ -13,6 +15,8 @@ app.use(likeRoute);
 app.use(commentRoute);
 app.use(postRoute);
 app.use(userRoute);
+dotenv.config();
+// app.use(authMiddleWare);
 
 const connectDataBase = async () => {
   console.log("call connect db");
