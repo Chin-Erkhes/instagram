@@ -1,6 +1,13 @@
 const commentModel = require("../models/commentSchema");
 const postModel = require("../models/postSchema");
 const commentRoute = require("../routes/user.Rountes");
+
+commentRoute.get("/getCommentsByPostId/:id", async (req, res) => {
+  const { id } = req.params;
+  const response = await commentModel.find({ postId: id }).populate("userId");
+  res.send(response);
+});
+
 commentRoute.post("/writecomment", async (req, res) => {
   try {
     const { comment, postId, userId } = req.body;
