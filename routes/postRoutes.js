@@ -35,4 +35,10 @@ postRoute.post("/create", async (req, res) => {
   res.status(200).json(posts);
 });
 
+postRoute.get("/getCommentsByPostId/:id", async (req, res) => {
+  const { id } = req.params;
+  const response = await postModel.findById(id).populate("comments");
+  res.send(response);
+});
+
 module.exports = postRoute;

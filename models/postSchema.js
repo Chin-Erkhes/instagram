@@ -5,6 +5,7 @@ const postSchema = new Schema(
     caption: { type: String, required: true },
     postImage: { type: String, required: true },
     userId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
+    comments: [{ type: mongoose.Types.ObjectId, ref: "comment", default: [] }],
     likes: { type: mongoose.Types.ObjectId, ref: "likes" },
   },
   { timeStamps: true }
