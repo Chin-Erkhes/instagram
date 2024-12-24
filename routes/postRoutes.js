@@ -39,7 +39,7 @@ postRoute.post("/create", async (req, res) => {
 postRoute.get("/getCommentsByPostId/:id", async (req, res) => {
   const { id } = req.params;
 
-  const response = await commentModel.find({ postId: id });
+  const response = await commentModel.find({ postId: id }).populate("userId");
   res.send(response);
 });
 
