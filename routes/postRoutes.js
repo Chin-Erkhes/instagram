@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const postModel = require("../models/postSchema");
 const userModel = require("../models/userSchema");
+const commentModel = require("../models/commentSchema");
 
 const postRoute = Route();
 const userRoute = Route();
@@ -37,7 +38,8 @@ postRoute.post("/create", async (req, res) => {
 
 postRoute.get("/getCommentsByPostId/:id", async (req, res) => {
   const { id } = req.params;
-  const response = await postModel.findById(id).populate("comments");
+
+  const response = await commentModel.find({ postId: id });
   res.send(response);
 });
 
