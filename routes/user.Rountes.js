@@ -29,6 +29,10 @@ userRoute.post("/signup", async (req, res) => {
   }
 });
 
+userRoute.post("/login", async (req, res) => {
+  const { username, email, password } = req.body;
+});
+
 userRoute.get("/user/posts", async (req, res) => {
   try {
     const posts = await userModel.find().populate("posts");
