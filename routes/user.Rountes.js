@@ -30,7 +30,29 @@ userRoute.post("/signup", async (req, res) => {
 });
 
 userRoute.post("/login", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
+
+  const user = await userModel.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const valid = bcrypt.compare(password, user.password);
+
+  if (valid) {
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        username: user.username,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+    res.send({ token });
+  } else {
+    return res.status(401).json({ message: "Password does't match" });
+  }
 });
 
 userRoute.get("/user/posts", async (req, res) => {
