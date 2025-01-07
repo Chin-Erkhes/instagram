@@ -55,15 +55,6 @@ userRoute.post("/login", async (req, res) => {
   }
 });
 
-userRoute.get("/user/posts", async (req, res) => {
-  try {
-    const posts = await userModel.find().populate("posts");
-    res.status(200).json(posts);
-  } catch (error) {
-    throw new Error(error);
-  }
-});
-
 userRoute.post("/user/follow", async (req, res) => {
   const { followingUserId, followedUserId } = req.body;
   if (followingUserId === followedUserId)

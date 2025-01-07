@@ -5,21 +5,17 @@ const postModel = require("../models/postSchema");
 
 const likeRoute = Route();
 
-likeRoute.post("/pressLike", async (req, res) => {
+likeRoute.post("/post/like", async (req, res) => {
+  const { postId, userId } = req.body;
   try {
-    const { postId, userId } = req.body;
-    const like = await likeModel.create({
-      postId,
-      userId,
+    const likePostResponse = await postModel.findByIdAndUpdate(postId, {
+      $addToSet: {
+        likes: userId,
+      },
     });
-    await postModel.findByIdAndUpdate(postId, {
-      $addToSet: like._id,
-    });
-
-    res.status(200).json({ message: "Post liked successfully" });
+    res.status(200).json(likePostResponse);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong");
+    res.status(500).send(error);
   }
 });
 

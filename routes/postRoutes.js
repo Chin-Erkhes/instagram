@@ -9,12 +9,13 @@ const postRoute = Route();
 const userRoute = Route();
 
 postRoute.post("/post", async (req, res) => {
-  const { caption, postImage, userId } = req.body;
+  const { caption, postImage, userId, likes } = req.body;
   try {
     const createdPost = await postModel.create({
       caption,
       postImage,
       userId,
+      likes,
     });
 
     await userModel.findByIdAndUpdate(userId, {
@@ -32,7 +33,7 @@ postRoute.post("/post", async (req, res) => {
 postRoute.post("/create", async (req, res) => {
   const posts = await postModel
     .find()
-    .populate("likes", "username profileImage");
+    .populate("likes", "username profileImage likes");
   res.status(200).json(posts);
 });
 
